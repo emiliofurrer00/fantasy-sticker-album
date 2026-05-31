@@ -1,10 +1,37 @@
+# virtual environments
 venv/
+.venv/
+
+# python cache
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
+*.py[cod]
+*$py.class
+
+# local database
 *.db
+*.sqlite
+*.sqlite3
+
+# environment variables
 .env
+.env.*
+
+# testing / coverage
 .pytest_cache/
 .coverage
 htmlcov/
+
+# build / packaging artifacts
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Tooling cache
+.ruff_cache/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
