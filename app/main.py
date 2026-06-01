@@ -1,16 +1,19 @@
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 
-from app import models
-from app.database import Base, engine
+from app.database import Base, SessionLocal, engine, get_db
+from app.routers import pages
+from app.seed import seed_data
 
 app = FastAPI()
 
-Base.metadata.create_all(bind=engine)
+app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
-@app.get("/")
-def root():
-    return {"Hola": "Mundo!"}
+Base.metadata.create_all(bind=engine)
+seed_data(SessionLocal())
+
+app.include_router(pages.router)
 
 @app.get("/health")
-def health():
+def health_check():
     return {"status": "ok"}
