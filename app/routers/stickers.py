@@ -1,17 +1,19 @@
+from typing import Annotated
+
 from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.orm import Session
 
 from app import crud, models
-from app.database import get_db
-from app.dependencies import get_current_user_from_session
+from app.dependencies import DbSession, get_current_user_from_session
 from app.schemas import StickerCreate, StickerRead
 
 router = APIRouter(prefix="/api/stickers", tags=["stickers"])
 
+CurrentUser = Annotated[models.User, Depends(get_current_user_from_session)]
+
 @router.get("/", response_model=list[StickerRead])
 def read_stickers(
-    current_user: models.User | None = Depends(get_current_user_from_session),
-    db: Session = Depends(get_db),
+    current_user: CurrentUser,
+    db: DbSession,
 ):
     if current_user is None:
         raise HTTPException(
@@ -25,8 +27,8 @@ def read_stickers(
 @router.post("/", response_model=StickerRead, status_code=status.HTTP_201_CREATED)
 def create_sticker(
     sticker_data: StickerCreate,
-    current_user: models.User | None = Depends(get_current_user_from_session),
-    db: Session = Depends(get_db),
+    current_user: CurrentUser,
+    db: DbSession,
 ):
     if current_user is None:
         raise HTTPException(

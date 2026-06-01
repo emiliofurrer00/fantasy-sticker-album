@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from starlette.middleware.sessions import SessionMiddleware
 
-from app.database import Base, SessionLocal, engine, get_db
+from app.database import Base, SessionLocal, engine
 from app.routers import pages, stickers
 from app.seed import seed_data
 

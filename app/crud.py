@@ -42,7 +42,7 @@ def create_sticker(
         collection_name=sticker_data.collection_name,
         role=sticker_data.role,
         number=sticker_data.number,
-        image_url=sticker_data.image_url,
+        image_url=str(sticker_data.image_url) if sticker_data.image_url else None,
         owner_id=owner_id,
         is_favorite=sticker_data.is_favorite or False
     )

@@ -1,12 +1,10 @@
-from fastapi import APIRouter, Depends, Form, Request, Response, status
+from fastapi import APIRouter, Form, Request, Response, status
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
-from sqlalchemy.orm import Session
 
 from app.auth import authenticate_user
-from app.database import get_db
-from app.dependencies import get_current_user_from_session
-from app.models import User
+from app.dependencies import DbSession
+from app.routers.stickers import CurrentUser
 
 router = APIRouter()
 templates = Jinja2Templates(directory="app/templates")
@@ -18,9 +16,9 @@ def login_page(request: Request):
 @router.post("/login", response_class=HTMLResponse)
 def login(
     request: Request,
+    db: DbSession,
     username: str = Form(...),
     password: str = Form(...),
-    db: Session = Depends(get_db),
 ):
     user = authenticate_user(db, username, password)
     if user is None:
@@ -38,7 +36,7 @@ def login(
 @router.get("/", response_class=HTMLResponse)
 def root(
     request: Request,
-    current_user: User | None = Depends(get_current_user_from_session),
+    current_user: CurrentUser,
 ):
     if current_user is None:
         return RedirectResponse("/login", status_code=302)

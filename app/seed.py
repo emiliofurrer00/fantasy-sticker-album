@@ -1,9 +1,11 @@
 from sqlalchemy.orm import Session
+
 from app import models
 from app.auth import hash_password
 from app.crud import get_user_by_username
 
-# Funcion para seedear db. A reemplazarse con un script de seedeo o migraciones si corresponde
+
+# Funcion para seedear db. A reemplazarse con un script de seedeo o migraciones
 def seed_data(db: Session) -> None:
     existing_demo_user = get_user_by_username(db, "demouser")
     try: 

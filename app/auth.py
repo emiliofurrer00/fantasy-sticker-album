@@ -1,6 +1,8 @@
 from typing import Any
+
 from pwdlib import PasswordHash
 from sqlalchemy.orm import Session
+
 from app.crud import get_user_by_username
 from app.models import User
 

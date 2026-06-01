@@ -1,12 +1,16 @@
+from typing import Annotated
+
 from fastapi import Depends, Request
 from sqlalchemy.orm import Session
 
 from app import crud, models
 from app.database import get_db
 
+DbSession = Annotated[Session, Depends(get_db)]
+
 def get_current_user_from_session(
     request: Request,
-    db: Session = Depends(get_db),
+    db: DbSession,
 ) -> models.User | None:
     user_id = request.session.get("user_id")
 
