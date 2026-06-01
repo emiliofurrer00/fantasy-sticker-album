@@ -1,14 +1,10 @@
-from typing import Annotated
-
 from fastapi import APIRouter, Depends, HTTPException, status
 
 from app import crud, models
-from app.dependencies import DbSession, get_current_user_from_session
+from app.dependencies import DbSession, CurrentUser, get_current_user_from_session
 from app.schemas import StickerCreate, StickerRead
 
 router = APIRouter(prefix="/api/stickers", tags=["stickers"])
-
-CurrentUser = Annotated[models.User, Depends(get_current_user_from_session)]
 
 @router.get("/", response_model=list[StickerRead])
 def read_stickers(
