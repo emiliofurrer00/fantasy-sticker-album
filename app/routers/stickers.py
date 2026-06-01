@@ -1,7 +1,7 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, HTTPException, status
 
-from app import crud, models
-from app.dependencies import DbSession, CurrentUser, get_current_user_from_session
+from app import crud
+from app.dependencies import CurrentUser, DbSession
 from app.schemas import StickerCreate, StickerRead
 
 router = APIRouter(prefix="/api/stickers", tags=["stickers"])

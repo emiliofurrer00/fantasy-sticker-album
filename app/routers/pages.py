@@ -3,7 +3,7 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 
 from app.auth import authenticate_user
-from app.dependencies import DbSession, CurrentUser
+from app.dependencies import CurrentUser, DbSession
 
 router = APIRouter()
 templates = Jinja2Templates(directory="app/templates")
