@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 
 from app.auth import authenticate_user
 from app.database import get_db
-from app.dependencies import get_current_user_from_cookie
+from app.dependencies import get_current_user_from_session
 from app.models import User
 
 router = APIRouter()
@@ -30,15 +30,15 @@ def login(
             {"error": "Invalid username or password"},
         )
     
+    request.session["user_id"] = user.id
     response = RedirectResponse("/", status_code=302)
-    
-    response.set_cookie(key="user_id", value=str(user.id), httponly=True)
+
     return response
 
 @router.get("/", response_class=HTMLResponse)
 def root(
     request: Request,
-    current_user: User | None = Depends(get_current_user_from_cookie),
+    current_user: User | None = Depends(get_current_user_from_session),
 ):
     if current_user is None:
         return RedirectResponse("/login", status_code=302)
@@ -47,11 +47,12 @@ def root(
 
 @router.post("/logout")
 def logout(
+    request: Request,
     response: Response,
 ):
     response = RedirectResponse(
         url="/login",
         status_code=status.HTTP_303_SEE_OTHER,
     )
-    response.delete_cookie("user_id")
+    request.session.clear()
     return response

@@ -4,11 +4,11 @@ from sqlalchemy.orm import Session
 from app import crud, models
 from app.database import get_db
 
-def get_current_user_from_cookie(
+def get_current_user_from_session(
     request: Request,
     db: Session = Depends(get_db),
 ) -> models.User | None:
-    user_id = request.cookies.get("user_id")
+    user_id = request.session.get("user_id")
 
     if user_id is None:
         return None
