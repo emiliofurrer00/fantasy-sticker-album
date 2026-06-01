@@ -22,4 +22,4 @@ def get_current_user_from_session(
 
     return crud.get_user_by_id(db, int(user_id))
 
-CurrentUser = Annotated[models.User, Depends(get_current_user_from_session)]
+CurrentUser = Annotated[models.User | None, Depends(get_current_user_from_session)]
