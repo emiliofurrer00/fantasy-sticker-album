@@ -13,7 +13,7 @@ def get_current_user_from_session(
     if user_id is None:
         return None
 
-    if not user_id.isdigit():
+    if not str(user_id).isdigit():
         return None
 
     return crud.get_user_by_id(db, int(user_id))
