@@ -5,7 +5,7 @@ from fastapi.staticfiles import StaticFiles
 from starlette.middleware.sessions import SessionMiddleware
 
 from app.database import Base, SessionLocal, engine, get_db
-from app.routers import pages
+from app.routers import pages, stickers
 from app.seed import seed_data
 
 app = FastAPI()
@@ -23,6 +23,7 @@ Base.metadata.create_all(bind=engine)
 seed_data(SessionLocal())
 
 app.include_router(pages.router)
+app.include_router(stickers.router)
 
 @app.get("/health")
 def health_check():
