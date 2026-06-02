@@ -79,7 +79,8 @@ def create_sticker(
         number=sticker_data.number,
         image_url=str(sticker_data.image_url) if sticker_data.image_url else None,
         owner_id=owner_id,
-        is_favorite=sticker_data.is_favorite or False
+        is_favorite=sticker_data.is_favorite or False,
+        album_id=sticker_data.album_id
     )
 
     db.add(new_sticker)

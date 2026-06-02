@@ -8,6 +8,7 @@ class StickerCreate(BaseModel):
     number: int | None = Field(default=None, ge=1)
     image_url: HttpUrl | None = None
     is_favorite: bool = False
+    album_id: int | None = None
 
 class StickerRead(BaseModel):
     id: int
@@ -17,7 +18,7 @@ class StickerRead(BaseModel):
     number: int | None
     image_url: HttpUrl | None
     is_favorite: bool
-
+    album_id: int | None
     model_config = {
         "from_attributes": True,
     }
