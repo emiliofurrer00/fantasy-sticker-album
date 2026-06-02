@@ -55,7 +55,8 @@ def demo_user(db_session):
         return demo_user
 
 @pytest.fixture()
-# Parametro 'no usado' es necesario para que pytest ejecute este fixture antes de los tests
+# Parametro 'no usado' es necesario para que pytest 
+# ejecute este fixture antes de los tests
 def authenticated_client(client, demo_user):
     response = client.post(
             "/login", 
