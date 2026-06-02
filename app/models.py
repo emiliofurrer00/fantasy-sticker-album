@@ -13,6 +13,22 @@ class User(Base):
 
     stickers: Mapped[list["Sticker"]] = relationship(
         "Sticker", back_populates="owner", cascade="all, delete-orphan")
+    albums: Mapped[list["Album"]] = relationship(
+        "Album", back_populates="owner", cascade="all, delete-orphan"
+    )
+
+
+class Album(Base):
+    __tablename__ = "albums"
+
+    id: Mapped[int] = mapped_column(primary_key=True, index=True)
+    title: Mapped[str] = mapped_column(index=True)
+    description: Mapped[str | None] = mapped_column(nullable=True)
+    is_public: Mapped[bool] = mapped_column(default=False)
+
+    owner_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
+    owner: Mapped["User"] = relationship("User", back_populates="albums")
+
 
 class Sticker(Base):
     __tablename__ = "stickers"
@@ -27,3 +43,5 @@ class Sticker(Base):
 
     owner_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
     owner: Mapped["User"] = relationship("User", back_populates="stickers")
+    album_id: Mapped[int | None] = mapped_column(ForeignKey("albums.id"), nullable=True)
+    album: Mapped["Album"] = relationship("Album", back_populates="stickers")
