@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block title %}home - album mundialero{% endblock %}
+{% block topbar_title %}album.mundialero/2026 -- home{% endblock %}
+{% block topbar_status %}user: {{ user.username }} / stickers: {{ stickers|length }} / albums: {{ albums|length }}{% endblock %}
+
+{% block body %}
+<div class="app-page page-shell">
+  <aside class="terminal-card sidebar" aria-label="navegacion principal">
+    <a class="brand-mark" href="/">
+      <span>ARG_2026</span>
+      <small>sticker db</small>
+    </a>
+
+    <nav class="main-nav" aria-label="secciones">
+      <a class="main-nav__item main-nav__item--active" href="#stickers">mis figuritas</a>
+      <a class="main-nav__item" href="#albums">mis albumes</a>
+      <a class="main-nav__item" href="#public-albums">albumes publicos</a>
+      <a class="main-nav__item" href="/docs">api docs</a>
+    </nav>
+
+    <form method="post" action="/logout">
+      <button class="button button--ghost button--full" type="submit">logout</button>
+    </form>
+  </aside>
+
+  <main class="terminal-card sticker-panel" aria-labelledby="stickers-title">
+    <div class="panel-heading">
+      <div>
+        <p class="eyebrow">collection.query</p>
+        <h1 id="stickers-title">mis figuritas</h1>
+      </div>
+      <a class="button button--primary" href="/docs">api docs</a>
+    </div>
+
+    <div class="filter-bar" aria-label="resumen de coleccion">
+      <span class="status-chip status-chip--active">{{ stickers|length }} figuritas</span>
+      <span class="status-chip">{{ albums|length }} albumes</span>
+      <span class="filter-bar__query">owner: {{ user.username }}</span>
+    </div>
+
+    <section id="stickers" class="sticker-list" aria-label="listado de figuritas">
+      {% for sticker in stickers %}
+        <article class="sticker-row sticker-row--owned">
+          <strong>#{{ sticker.number or sticker.id }}</strong>
+          <div>
+            <h2>{{ sticker.name }}</h2>
+            <p>{{ sticker.collection_name or "sin coleccion" }} / {{ sticker.role or "sin rol" }}</p>
+          </div>
+          {% if sticker.album_id %}
+            <span class="status-badge status-badge--owned">album #{{ sticker.album_id }}</span>
+          {% else %}
+            <span class="status-badge">sin album</span>
+          {% endif %}
+          <code>id:{{ sticker.id }}</code>
+          {% if sticker.is_favorite %}
+            <span class="status-badge status-badge--dupe">fav</span>
+          {% else %}
+            <span class="status-badge">base</span>
+          {% endif %}
+        </article>
+      {% else %}
+        <article class="sticker-row">
+          <strong>--</strong>
+          <div>
+            <h2>todavia no hay figuritas</h2>
+            <p>la API permite crear una con POST /api/stickers/</p>
+          </div>
+          <span class="status-badge">empty</span>
+          <code>0 rows</code>
+          <a href="/docs">docs</a>
+        </article>
+      {% endfor %}
+    </section>
+  </main>
+
+  <aside class="terminal-card stats-panel" aria-label="albumes">
+    <h2 id="albums">mis albumes</h2>
+    {% for album in albums %}
+      {% if album.is_public %}
+        <span class="status-badge status-badge--owned">{{ album.title }} / publico</span>
+      {% else %}
+        <span class="status-badge status-badge--missing">{{ album.title }} / privado</span>
+      {% endif %}
+    {% else %}
+      <span class="status-badge">sin albumes propios</span>
+    {% endfor %}
+
+    <h2 id="public-albums">albumes publicos</h2>
+    {% for album in public_albums %}
+      <span class="status-badge status-badge--owned">{{ album.title }} / owner #{{ album.owner_id }}</span>
+    {% else %}
+      <span class="status-badge">sin albumes publicos</span>
+    {% endfor %}
+
+    <pre><code>api {
+  stickers: /api/stickers/
+  albums: /api/albums/
+}</code></pre>
+  </aside>
+</div>
+{% endblock %}

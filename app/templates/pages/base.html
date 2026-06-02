@@ -10,6 +10,18 @@
   <link rel="stylesheet" href="/static/css/main.css">
 </head>
 <body>
+  <header class="terminal-topbar">
+    <div class="terminal-topbar__lights">
+      <span class="terminal-dot terminal-dot--red"></span>
+      <span class="terminal-dot terminal-dot--gold"></span>
+      <span class="terminal-dot terminal-dot--blue"></span>
+    </div>
+    <div class="terminal-topbar__content">
+      <p class="terminal-topbar__title">{% block topbar_title %}album.mundialero/2026{% endblock %}</p>
+      <span class="terminal-topbar__status">{% block topbar_status %}build: codigo.libre.challenge.tecnico{% endblock %}</span>
+    </div>
+  </header>
+
   {% block body %}{% endblock %}
 </body>
 </html>
