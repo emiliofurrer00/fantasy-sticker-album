@@ -31,6 +31,20 @@ def create_sticker(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Not authenticated",
         )
+    
+    if sticker_data.album_id is not None:
+        album = crud.get_album_by_id(db, sticker_data.album_id)
+        if album is None:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="Album not found",
+            )
+
+        if album.owner_id != current_user.id:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Cannot add sticker to an album you do not own",
+            )
 
     sticker = crud.create_sticker(db, sticker_data, current_user.id)
     return sticker
