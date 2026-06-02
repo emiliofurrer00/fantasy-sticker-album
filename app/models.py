@@ -29,6 +29,10 @@ class Album(Base):
     owner_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
     owner: Mapped["User"] = relationship("User", back_populates="albums")
 
+    stickers: Mapped[list["Sticker"]] = relationship(
+        "Sticker", back_populates="album"
+    )
+
 
 class Sticker(Base):
     __tablename__ = "stickers"
@@ -44,4 +48,4 @@ class Sticker(Base):
     owner_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
     owner: Mapped["User"] = relationship("User", back_populates="stickers")
     album_id: Mapped[int | None] = mapped_column(ForeignKey("albums.id"), nullable=True)
-    album: Mapped["Album"] = relationship("Album", back_populates="stickers")
+    album: Mapped[Album | None] = relationship("Album", back_populates="stickers")
