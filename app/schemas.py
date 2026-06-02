@@ -21,4 +21,21 @@ class StickerRead(BaseModel):
     model_config = {
         "from_attributes": True,
     }
-    
+
+
+class AlbumCreate(BaseModel):
+    title: str = Field(min_length=1, max_length=100)
+    description: str | None = Field(default=None, max_length=300)
+    is_public: bool = False
+
+
+class AlbumRead(BaseModel):
+    id: int
+    title: str
+    description: str | None
+    is_public: bool
+    owner_id: int
+
+    model_config = {
+        "from_attributes": True,
+    }
