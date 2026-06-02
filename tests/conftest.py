@@ -6,8 +6,13 @@ from sqlalchemy.pool import StaticPool
 
 from app.auth import hash_password
 from app.database import Base, get_db
-from app.main import app
+from app.main import create_app
 from app.models import User
+
+
+@pytest.fixture()
+def app():
+    return create_app(init_database=False)
 
 
 @pytest.fixture()
@@ -31,7 +36,7 @@ def db_session():
 
 
 @pytest.fixture()
-def client(db_session):
+def client(app, db_session):
     def override_get_db():
         yield db_session
 
