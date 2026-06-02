@@ -2,7 +2,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app import models
-from app.schemas import StickerCreate
+from app.schemas import AlbumCreate, StickerCreate
 
 
 def get_user_by_username(db: Session, username: str) -> models.User | None:
@@ -18,6 +18,41 @@ def get_user_by_id(db: Session, user_id: int) -> models.User | None:
 def get_stickers_by_owner(db: Session, owner_id: int) -> list[models.Sticker]:
     statement = select(models.Sticker).where(models.Sticker.owner_id == owner_id)
     return list(db.scalars(statement))
+
+
+def get_album_by_id(db: Session, album_id: int) -> models.Album | None:
+    statement = select(models.Album).where(models.Album.id == album_id)
+    return db.scalar(statement)
+
+
+def get_albums_by_owner(db: Session, owner_id: int) -> list[models.Album]:
+    statement = select(models.Album).where(models.Album.owner_id == owner_id)
+    return list(db.scalars(statement))
+
+
+def get_public_albums(db: Session) -> list[models.Album]:
+    statement = select(models.Album).where(models.Album.is_public.is_(True))
+    return list(db.scalars(statement))
+
+
+def create_album(
+    db: Session,
+    album_data: AlbumCreate,
+    owner_id: int,
+) -> models.Album:
+    new_album = models.Album(
+        title=album_data.title,
+        description=album_data.description,
+        is_public=album_data.is_public,
+        owner_id=owner_id,
+    )
+
+    db.add(new_album)
+    db.commit()
+    db.refresh(new_album)
+
+    return new_album
+
 
 def get_sticker_by_owner_name_and_collection(
     db: Session,
