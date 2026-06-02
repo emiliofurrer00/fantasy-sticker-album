@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}login - album mundialero{% endblock %}
+{% block topbar_title %}album.mundialero/2026 -- auth{% endblock %}
+{% block topbar_status %}ARG challenge online / session: guest{% endblock %}
+
+{% block body %}
+<main class="auth-page page-shell">
+  <section class="auth-hero">
+    <p class="eyebrow">CLC Challenge / FastApi mode</p>
+    <h1 id="login-title">album.mundialero</h1>
+    <p>Challenge tecnico para Código Libre Coop.</p>
+  </section>
+
+  <section>
+    <p class="terminal-alert">auth.required</p>
+    <h2>iniciar_sesion</h2>
+    <form class="auth-form" method="post" action="/login">
+      <label class="field-control">
+        <span>usuario</span>
+        <input name="username" type="text" required>
+      </label>
+
+      <label class="field-control">
+        <span>password</span>
+        <input name="password" type="password" required>
+      </label>
+
+      <button class="button" type="submit">entrar</button>
+    </form>
+    {% if error %}
+      <p class="form-error" role="alert">{{ error }}</p>
+    {% endif %}
+    <div>
+      <strong>session:</strong>
+      <span>visitante / auth requerida</span>
+    </div>
+  </section>
+</main>
+{% endblock %}
