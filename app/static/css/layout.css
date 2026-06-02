@@ -1,0 +1,20 @@
+.page-shell {
+  width: min(100% - 2rem, 1360px);
+  margin-inline: auto;
+}
+
+.auth-page {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 500px;
+  align-items: center;
+  gap: var(--space-8);
+  min-height: calc(100vh - 88px);
+  padding-block: var(--space-8);
+}
+
+.app-page {
+  display: grid;
+  grid-template-columns: 254px minmax(0, 1fr) 254px;
+  gap: var(--space-6);
+  padding-block: var(--space-8);
+}

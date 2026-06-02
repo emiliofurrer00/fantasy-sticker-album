@@ -1,0 +1,145 @@
+.terminal-card {
+  background: var(--color-surface);
+  border: var(--border-strong);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-hard);
+}
+
+.terminal-topbar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: min(100% - 2rem, 1360px);
+  min-height: 56px;
+  margin: var(--space-8) auto 0;
+  padding: var(--space-3) var(--space-5);
+  color: var(--color-surface);
+  background: var(--color-ink);
+  border-radius: var(--radius-sm);
+}
+
+.terminal-topbar__lights,
+.terminal-topbar__content {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.terminal-topbar__content {
+  flex: 1;
+  justify-content: space-between;
+  min-width: 0;
+}
+
+.terminal-topbar__title {
+  font-weight: 800;
+}
+
+.terminal-topbar__status {
+  color: var(--color-blue);
+  font-size: 0.8125rem;
+}
+
+.terminal-dot {
+  width: 10px;
+  height: 10px;
+  flex: 0 0 auto;
+  border-radius: 999px;
+}
+
+.terminal-dot--red {
+  background: var(--color-red);
+}
+
+.terminal-dot--gold {
+  background: var(--color-gold);
+}
+
+.terminal-dot--blue {
+  background: var(--color-blue);
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0.75rem 1rem;
+  color: var(--color-ink);
+  font-weight: 800;
+  background: var(--color-surface);
+  border: var(--border-normal);
+  border-radius: var(--radius-sm);
+}
+
+.button--primary {
+  background: var(--color-blue);
+}
+
+.button--ghost {
+  background: var(--color-paper);
+}
+
+.button--full {
+  width: 100%;
+}
+
+.field-control {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.field-control span,
+.eyebrow {
+  color: var(--color-blue-dark);
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.field-control input {
+  width: 100%;
+  min-height: 56px;
+  padding: 0.75rem 1rem;
+  color: var(--color-ink);
+  background: var(--color-surface);
+  border: var(--border-normal);
+  border-radius: var(--radius-sm);
+}
+
+.field-control input:focus {
+  outline: 3px solid var(--color-gold);
+  outline-offset: 2px;
+}
+
+.status-badge,
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 30px;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 800;
+  background: var(--color-surface);
+  border: var(--border-normal);
+  border-radius: var(--radius-sm);
+}
+
+.status-chip--active {
+  background: var(--color-blue);
+}
+
+.status-badge--owned,
+.status-chip--owned {
+  background: var(--color-mint);
+}
+
+.status-badge--missing,
+.status-chip--missing {
+  background: var(--color-gold);
+}
+
+.status-badge--dupe {
+  background: var(--color-red);
+}

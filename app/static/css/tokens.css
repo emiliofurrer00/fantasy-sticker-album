@@ -1,0 +1,27 @@
+:root {
+  --color-ink: #0b0b0b;
+  --color-paper: #f7f8ef;
+  --color-surface: #ffffff;
+  --color-blue: #75c7f0;
+  --color-blue-dark: #0e5ea8;
+  --color-gold: #f4c542;
+  --color-mint: #bdf4d2;
+  --color-red: #ff5f57;
+  --color-pale-blue: #dff5ff;
+
+  --font-mono: "JetBrains Mono", "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --border-strong: 3px solid var(--color-ink);
+  --border-normal: 2px solid var(--color-ink);
+  --shadow-hard: 7px 7px 0 var(--color-ink);
+}
