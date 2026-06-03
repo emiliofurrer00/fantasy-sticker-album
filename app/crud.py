@@ -54,20 +54,6 @@ def create_album(
     return new_album
 
 
-def get_sticker_by_owner_name_and_collection(
-    db: Session,
-    owner_id: int,
-    name: str,
-    collection_name: str | None = None,
-) -> models.Sticker | None:
-    statement = select(models.Sticker).where(
-        models.Sticker.owner_id == owner_id,
-        models.Sticker.name == name,
-        models.Sticker.collection_name == collection_name,
-    )
-    return db.scalar(statement)
-
-
 def create_sticker(
     db: Session, sticker_data: StickerCreate, owner_id: int
 ) -> models.Sticker:
