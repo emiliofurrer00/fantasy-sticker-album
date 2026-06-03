@@ -1,6 +1,8 @@
 const filterButtons = document.querySelectorAll("[data-sticker-filter]");
 const stickerRows = document.querySelectorAll("[data-sticker-row]");
 const emptyState = document.querySelector("[data-filter-empty]");
+const filterSummary = document.querySelector("[data-filter-summary]");
+const navItems = document.querySelectorAll(".main-nav__item[href^='#']");
 
 function rowMatchesFilter(row, filter) {
   if (filter === "with-album") {
@@ -32,6 +34,10 @@ function applyStickerFilter(filter) {
   if (emptyState) {
     emptyState.hidden = stickerRows.length === 0 || visibleRows > 0;
   }
+
+  if (filterSummary) {
+    filterSummary.textContent = `mostrando ${visibleRows} de ${stickerRows.length}`;
+  }
 }
 
 filterButtons.forEach((button) => {
@@ -42,5 +48,15 @@ filterButtons.forEach((button) => {
 
     button.classList.add("status-chip--active");
     applyStickerFilter(button.dataset.stickerFilter);
+  });
+});
+
+navItems.forEach((item) => {
+  item.addEventListener("click", () => {
+    navItems.forEach((currentItem) => {
+      currentItem.classList.remove("main-nav__item--active");
+    });
+
+    item.classList.add("main-nav__item--active");
   });
 });
