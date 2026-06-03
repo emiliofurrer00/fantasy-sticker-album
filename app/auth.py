@@ -25,6 +25,3 @@ def authenticate_user(db: Session, username: str, password: str) -> User | None:
         return None
 
     return user
-
-
-# Potencial cambio: considerar usar JWT para auth
