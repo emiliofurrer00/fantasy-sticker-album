@@ -9,11 +9,13 @@ from app.dependencies import CurrentUser, DbSession
 router = APIRouter()
 templates = Jinja2Templates(directory="app/templates/pages")
 
+
 @router.get("/login", response_class=HTMLResponse)
 def login_page(request: Request, current_user: CurrentUser):
     if current_user:
         return RedirectResponse("/", status_code=302)
     return templates.TemplateResponse(request, "login.html")
+
 
 @router.post("/login", response_class=HTMLResponse)
 def login(
@@ -29,11 +31,12 @@ def login(
             "login.html",
             {"error": "Invalid username or password"},
         )
-    
+
     request.session["user_id"] = user.id
     response = RedirectResponse("/", status_code=302)
 
     return response
+
 
 @router.get("/", response_class=HTMLResponse)
 def root(
@@ -58,6 +61,7 @@ def root(
             "public_albums": public_albums,
         },
     )
+
 
 @router.post("/logout")
 def logout(

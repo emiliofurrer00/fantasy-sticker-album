@@ -6,6 +6,7 @@ from app.schemas import StickerCreate, StickerRead
 
 router = APIRouter(prefix="/api/stickers", tags=["stickers"])
 
+
 @router.get("/", response_model=list[StickerRead])
 def read_stickers(
     current_user: CurrentUser,
@@ -16,9 +17,10 @@ def read_stickers(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Not authenticated",
         )
-    
+
     stickers = crud.get_stickers_by_owner(db, current_user.id)
     return stickers
+
 
 @router.post("/", response_model=StickerRead, status_code=status.HTTP_201_CREATED)
 def create_sticker(
@@ -31,7 +33,7 @@ def create_sticker(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Not authenticated",
         )
-    
+
     if sticker_data.album_id is not None:
         album = crud.get_album_by_id(db, sticker_data.album_id)
         if album is None:

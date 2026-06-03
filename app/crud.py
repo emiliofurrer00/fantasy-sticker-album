@@ -67,10 +67,9 @@ def get_sticker_by_owner_name_and_collection(
     )
     return db.scalar(statement)
 
+
 def create_sticker(
-        db: Session,
-        sticker_data: StickerCreate,
-        owner_id: int
+    db: Session, sticker_data: StickerCreate, owner_id: int
 ) -> models.Sticker:
     new_sticker = models.Sticker(
         name=sticker_data.name,
@@ -80,7 +79,7 @@ def create_sticker(
         image_url=str(sticker_data.image_url) if sticker_data.image_url else None,
         owner_id=owner_id,
         is_favorite=sticker_data.is_favorite or False,
-        album_id=sticker_data.album_id
+        album_id=sticker_data.album_id,
     )
 
     db.add(new_sticker)

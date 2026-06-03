@@ -7,6 +7,7 @@ from app.schemas import AlbumCreate, AlbumRead
 
 router = APIRouter(prefix="/api/albums", tags=["albums"])
 
+
 @router.get("/public", response_model=list[AlbumRead])
 def read_public_albums(db: DbSession):
     return crud.get_public_albums(db)

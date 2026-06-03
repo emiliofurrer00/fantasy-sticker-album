@@ -21,7 +21,7 @@ def db_session():
     engine = create_engine(
         "sqlite:///:memory:",
         connect_args={"check_same_thread": False},
-        poolclass=StaticPool
+        poolclass=StaticPool,
     )
 
     TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
@@ -47,31 +47,26 @@ def client(app, db_session):
 
     app.dependency_overrides.clear()
 
-@pytest.fixture()
-def demo_user(db_session):
-        # Seed de usuario demo
-        demo_user = User(
-            username="demouser",
-            password_hash=hash_password("demopassword")
-        )
-        db_session.add(demo_user)
-        db_session.commit()
-        db_session.refresh(demo_user)
-        return demo_user
 
 @pytest.fixture()
-# Parametro 'no usado' es necesario para que pytest 
+def demo_user(db_session):
+    # Seed de usuario demo
+    demo_user = User(username="demouser", password_hash=hash_password("demopassword"))
+    db_session.add(demo_user)
+    db_session.commit()
+    db_session.refresh(demo_user)
+    return demo_user
+
+
+@pytest.fixture()
+# Parametro 'no usado' es necesario para que pytest
 # ejecute este fixture antes de los tests
 def authenticated_client(client, demo_user):
     response = client.post(
-            "/login", 
-            data={
-               "username": "demouser", 
-               "password": "demopassword"
-        },
+        "/login",
+        data={"username": "demouser", "password": "demopassword"},
         follow_redirects=False,
     )
 
     assert response.status_code == 302
     return client
-

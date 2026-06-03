@@ -12,7 +12,8 @@ class User(Base):
     password_hash: Mapped[str] = mapped_column(nullable=False)
 
     stickers: Mapped[list["Sticker"]] = relationship(
-        "Sticker", back_populates="owner", cascade="all, delete-orphan")
+        "Sticker", back_populates="owner", cascade="all, delete-orphan"
+    )
     albums: Mapped[list["Album"]] = relationship(
         "Album", back_populates="owner", cascade="all, delete-orphan"
     )
@@ -29,9 +30,7 @@ class Album(Base):
     owner_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
     owner: Mapped["User"] = relationship("User", back_populates="albums")
 
-    stickers: Mapped[list["Sticker"]] = relationship(
-        "Sticker", back_populates="album"
-    )
+    stickers: Mapped[list["Sticker"]] = relationship("Sticker", back_populates="album")
 
 
 class Sticker(Base):

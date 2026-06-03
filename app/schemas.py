@@ -10,6 +10,7 @@ class StickerCreate(BaseModel):
     is_favorite: bool = False
     album_id: int | None = None
 
+
 class StickerRead(BaseModel):
     id: int
     name: str
