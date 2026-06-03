@@ -40,7 +40,7 @@
       <button class="status-chip" type="button" data-sticker-filter="with-album">con album</button>
       <button class="status-chip" type="button" data-sticker-filter="without-album">sin album</button>
       <button class="status-chip" type="button" data-sticker-filter="favorites">favoritas</button>
-      <span class="filter-bar__query">owner: {{ user.username }}</span>
+      <span class="filter-bar__query" data-filter-summary>mostrando {{ stickers|length }} de {{ stickers|length }}</span>
     </div>
 
     <section id="stickers" class="sticker-list">
