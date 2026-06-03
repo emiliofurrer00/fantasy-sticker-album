@@ -139,6 +139,15 @@
   font-weight: 800;
 }
 
+.filter-empty {
+  padding: var(--space-4);
+  background: var(--color-paper);
+  border: var(--border-normal);
+  border-radius: var(--radius-sm);
+  font-weight: 800;
+  text-align: center;
+}
+
 .stats-panel {
   display: grid;
   align-content: start;

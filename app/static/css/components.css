@@ -126,6 +126,15 @@
   border-radius: var(--radius-sm);
 }
 
+button.status-chip {
+  cursor: pointer;
+}
+
+button.status-chip:focus {
+  outline: 3px solid var(--color-gold);
+  outline-offset: 2px;
+}
+
 .status-chip--active {
   background: var(--color-blue);
 }

@@ -6,13 +6,13 @@
 
 {% block body %}
 <div class="app-page page-shell">
-  <aside class="terminal-card sidebar" aria-label="navegacion principal">
+  <aside class="terminal-card sidebar">
     <a class="brand-mark" href="/">
       <span>ARG_2026</span>
       <small>sticker db</small>
     </a>
 
-    <nav class="main-nav" aria-label="secciones">
+    <nav class="main-nav">
       <a class="main-nav__item main-nav__item--active" href="#stickers">mis figuritas</a>
       <a class="main-nav__item" href="#albums">mis albumes</a>
       <a class="main-nav__item" href="#public-albums">albumes publicos</a>
@@ -24,24 +24,33 @@
     </form>
   </aside>
 
-  <main class="terminal-card sticker-panel" aria-labelledby="stickers-title">
+  <main class="terminal-card sticker-panel">
     <div class="panel-heading">
       <div>
         <p class="eyebrow">collection.query</p>
-        <h1 id="stickers-title">mis figuritas</h1>
+        <h1>mis figuritas</h1>
       </div>
       <a class="button button--primary" href="/docs">api docs</a>
     </div>
 
-    <div class="filter-bar" aria-label="resumen de coleccion">
-      <span class="status-chip status-chip--active">{{ stickers|length }} figuritas</span>
-      <span class="status-chip">{{ albums|length }} albumes</span>
+    <div class="filter-bar">
+      <button class="status-chip status-chip--active" type="button" data-sticker-filter="all">
+        {{ stickers|length }} figuritas
+      </button>
+      <button class="status-chip" type="button" data-sticker-filter="with-album">con album</button>
+      <button class="status-chip" type="button" data-sticker-filter="without-album">sin album</button>
+      <button class="status-chip" type="button" data-sticker-filter="favorites">favoritas</button>
       <span class="filter-bar__query">owner: {{ user.username }}</span>
     </div>
 
-    <section id="stickers" class="sticker-list" aria-label="listado de figuritas">
+    <section id="stickers" class="sticker-list">
       {% for sticker in stickers %}
-        <article class="sticker-row sticker-row--owned">
+        <article
+          class="sticker-row sticker-row--owned"
+          data-sticker-row
+          data-has-album="{{ 'true' if sticker.album_id else 'false' }}"
+          data-is-favorite="{{ 'true' if sticker.is_favorite else 'false' }}"
+        >
           <strong>#{{ sticker.number or sticker.id }}</strong>
           <div>
             <h2>{{ sticker.name }}</h2>
@@ -71,10 +80,11 @@
           <a href="/docs">docs</a>
         </article>
       {% endfor %}
+      <p class="filter-empty" data-filter-empty hidden>sin figuritas para este filtro</p>
     </section>
   </main>
 
-  <aside class="terminal-card stats-panel" aria-label="albumes">
+  <aside class="terminal-card stats-panel">
     <h2 id="albums">mis albumes</h2>
     {% for album in albums %}
       {% if album.is_public %}
