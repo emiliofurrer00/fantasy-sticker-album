@@ -180,6 +180,7 @@ para que los tests puedan crear una app con base aislada en memoria.
 
 ## Que mejoraria con mas tiempo
 
+- Endpoints de actualizacion y borrado, definiendo reglas de permisos y comportamiento de relaciones.
 - Migraciones con Alembic.
 - Configuracion tipada por ambiente y `SESSION_SECRET_KEY` obligatorio fuera de
   desarrollo.
