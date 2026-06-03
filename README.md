@@ -64,7 +64,7 @@ La aplicacion queda disponible en:
 - Documentacion interactiva: http://127.0.0.1:8000/docs
 
 Al arrancar, la app inicializa la base desde el lifecycle de FastAPI: crea las
-tablas necesarias y carga un usuario demo si todavia no existe.
+tablas necesarias y carga un usuario con datos demo si todavia no existen.
 
 ## Como levantar con Docker
 
@@ -87,6 +87,8 @@ password: demouser123
 ```
 
 Con ese usuario se puede iniciar sesion desde `/login` y acceder al home.
+El seed inicial tambien crea albumes y figuritas de ejemplo para que la pantalla
+principal tenga datos visibles desde el primer arranque.
 
 ## API REST
 
