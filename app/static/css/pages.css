@@ -3,16 +3,6 @@
   gap: var(--space-3);
 }
 
-.auth-card {
-  display: grid;
-  gap: var(--space-5);
-  padding: var(--space-8);
-}
-
-.auth-card h2 {
-  font-size: clamp(1.5rem, 4vw, 2rem);
-}
-
 .auth-form {
   display: grid;
   gap: var(--space-4);
@@ -23,16 +13,6 @@
   color: var(--color-red);
   font-size: 0.8125rem;
   font-weight: 800;
-}
-
-.session-strip {
-  display: flex;
-  gap: var(--space-3);
-  padding: var(--space-3);
-  background: var(--color-paper);
-  border: var(--border-normal);
-  border-radius: var(--radius-sm);
-  font-size: 0.75rem;
 }
 
 .sidebar,
@@ -168,19 +148,6 @@
   background: var(--color-gold);
   border: var(--border-normal);
   border-radius: var(--radius-sm);
-}
-
-.progress-meter {
-  height: 34px;
-  background: var(--color-paper);
-  border: var(--border-normal);
-}
-
-.progress-meter__bar {
-  display: block;
-  width: 72%;
-  height: 100%;
-  background: var(--color-blue);
 }
 
 .stats-panel pre {
